@@ -1,7 +1,6 @@
 #FredR
 
 
-#library(tidyverse, fredr, data.table)
 
 #' Sets FRED API Key from environment variable, fred_key
 #'
@@ -106,6 +105,7 @@ get_rate_spreads <- function(rates, tickers_ordered)
       dfspreads[[cnt]] <- df_
       cnt <- cnt+1
     }
+
   }
 
   most_days <- 0
@@ -127,5 +127,5 @@ get_rate_spreads <- function(rates, tickers_ordered)
     spreads <- spreads %>%
       left_join(dfspreads[[i]], by='date')
   }
-
+  return(spreads)
 }
