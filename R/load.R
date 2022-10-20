@@ -14,7 +14,7 @@ load_ticker <- function(ticker, source='EODHistorical', interval='1D')
 {
   if (source == 'EODHistorical' && interval == '1D') interval <- 'EOD'
 
-  source_dir <- get_source_dir(source)
+  source_dir <- load_source_dir(source)
   if (source == 'EODHistorical')
   {
     file_ext <- '.parquet'
