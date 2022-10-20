@@ -6,7 +6,7 @@
 #'
 #' @return data.frame
 #' @export
-set_fredr_key <- function()
+fred_set_key <- function()
 {
   key <- Sys.getenv('fred_key')
   if (nchar(key) < 1)
@@ -21,7 +21,7 @@ set_fredr_key <- function()
 #' @param ticker Name of ticker from FRED
 #' @return data.frame
 #' @export
-get_rate <- function(ticker)
+fred_get_rate <- function(ticker)
 {
   fredr::fredr(series_id = ticker) %>%
     rename(ticker=series_id,
@@ -35,7 +35,7 @@ get_rate <- function(ticker)
 #' @param tickers Vector of tickers from FRED
 #' @return data.frame
 #' @export
-get_all_rates <- function()
+fred_get_all_rates <- function()
 {
   tickers <- c('DGS1MO','DGS3MO','DGS6MO','DGS1','DGS2','DGS3','DGS5','DGS7','DGS10','DGS20','DGS30')
   rates <- data.table::rbindlist(lapply(tickers, get_rate)) %>%
@@ -49,7 +49,7 @@ get_all_rates <- function()
 #'
 #' @return Vector of tickers from FRED
 #' @export
-get_all_USrate_tickers <- function()
+fred_get_all_us_rate_tickers <- function()
 {
   return (c('DGS1MO','DGS3MO','DGS6MO','DGS1','DGS2','DGS3','DGS5','DGS7','DGS10','DGS20','DGS30'))
 }
@@ -60,8 +60,9 @@ get_all_USrate_tickers <- function()
 #'
 #' @return Dataframe of spreads
 #' @export
-get_rate_spreads <- function(rates, tickers_ordered)
+fred_get_rate_spreads <- function(rates, tickers_ordered)
 {
+  #tickers_ordered <- quantpack::get_all_USrate_tickers()
   df <- rates %>%
     filter(ticker %in% tickers_ordered)
 

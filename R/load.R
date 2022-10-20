@@ -10,7 +10,7 @@ EOD_DIR <- '\\\\amd\\d\\EODHistorical'
 #' @param interval Interval of data to load (1m,1D,EOD)
 #' @return data.frame
 #' @export
-get_ticker <- function(ticker, source='EODHistorical', interval='1D')
+load_ticker <- function(ticker, source='EODHistorical', interval='1D')
 {
   if (source == 'EODHistorical' && interval == '1D') interval <- 'EOD'
 
@@ -27,7 +27,7 @@ get_ticker <- function(ticker, source='EODHistorical', interval='1D')
   }
 }
 
-get_source_dir <- function(source)
+load_source_dir <- function(source)
 {
   if (source == 'EODHistorical')
     return(EOD_DIR)
@@ -41,7 +41,7 @@ get_source_dir <- function(source)
 #' @param interval Interval of data to load (1m,1D,EOD)
 #' @return data.frame
 #' @export
-get_tickers <- function(tickers, source='EODHistorical', interval='1D')
+load_tickers <- function(tickers, source='EODHistorical', interval='1D')
 {
   data.table::rbindlist(lapply(tickers, get_ticker, source=source, interval=interval))
 }
