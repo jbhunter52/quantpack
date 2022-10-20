@@ -1,5 +1,5 @@
 # https://tinyheero.github.io/jekyll/update/2015/07/26/making-your-first-R-package.html
-
+# devtools::document()
 
 EOD_DIR <- '\\\\amd\\d\\EODHistorical'
 
