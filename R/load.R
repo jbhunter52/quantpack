@@ -43,6 +43,6 @@ load_source_dir <- function(source)
 #' @export
 load_tickers <- function(tickers, source='EODHistorical', interval='1D')
 {
-  data.table::rbindlist(lapply(tickers, get_ticker, source=source, interval=interval))
+  data.table::rbindlist(lapply(tickers, load_ticker, source=source, interval=interval))
 }
 
