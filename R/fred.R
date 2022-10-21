@@ -38,9 +38,11 @@ fred_get_rate <- function(ticker)
 fred_get_all_rates <- function()
 {
   tickers <- c('DGS1MO','DGS3MO','DGS6MO','DGS1','DGS2','DGS3','DGS5','DGS7','DGS10','DGS20','DGS30')
-  rates <- data.table::rbindlist(lapply(tickers, get_rate)) %>%
+  rates <- data.table::rbindlist(lapply(tickers, fred_get_rate)) %>%
     group_by(ticker) %>%
-    fill(close, .direction='down')
+    fill(close, .direction='down') %>%
+    ungroup()
+
 }
 
 
