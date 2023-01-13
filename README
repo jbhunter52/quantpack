@@ -1,0 +1,23 @@
+Just some notes to help me remember how to build documentation
+
+https://tinyheero.github.io/jekyll/update/2015/07/26/making-your-first-R-package.html
+
+-Each time you add new documentation to your R function, you need to run
+    devtools::document()
+  again to re-generate the .Rd files.
+
+-If any Rcpp code is changed run this
+Rcpp::compileAttributes()
+
+-Install from my own local env
+devtools::install(paste0('C:\\Users\\', Sys.getenv('USERNAME'), '\\GoogleDrive\\R\\quantpack\\'))
+
+
+-fred.R, contains FREDR data
+env variable, fred_key, should contain fred api key
+
+-calc.R, contains calculation functions
+
+-load.R, loads securities price history
+
+-mom.R, calculates momentum features
