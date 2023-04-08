@@ -20,10 +20,20 @@ load_ticker <- function(ticker, source='EODHistorical', interval='1D')
     file_ext <- '.parquet'
     source_dir <- EOD_DIR
     file <- paste0(EOD_DIR,'\\',interval,'\\',ticker,file_ext)
-    df <- read_parquet(file) %>%
-      mutate(date = as.Date(date)) %>%
-      mutate(ticker = ticker) %>%
-      select(date, ticker, everything())
+
+    if (interval == 'EOD')
+    {
+      df <- read_parquet(file) %>%
+        mutate(date = as.Date(date)) %>%
+        mutate(ticker = ticker) %>%
+        select(date, ticker, everything())
+    }
+    else
+    {
+      df <- read_parquet(file) %>%
+        mutate(ticker = ticker) %>%
+        select(Datetime, ticker, everything())
+    }
   }
 }
 

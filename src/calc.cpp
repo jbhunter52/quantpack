@@ -200,6 +200,92 @@ NumericVector calc_bs_iv_cpp(NumericVector S, NumericVector K, NumericVector T, 
 }
 
 
+//' Rolling percentile
+//'
+//' @param x, vector of feature
+//' @param n, window size
+//' @param na_rm, to remove NA's or not
+//' @export
+// [[Rcpp::export]]
+NumericVector calc_rolling_percentile(NumericVector x, int n, bool na_rm = true) {
+  // create output vector of known size
+  NumericVector out (x.size());
+
+  // handle missing values in x
+  // if na_rm is true, ignore NA in x (in this case, if x[i] is NA, out[i] will
+  // also be NA, and other values in that window will be compared with one less
+  // value)
+  if(na_rm)
+  {
+    // iterate through history
+    // TODO: replace with iterator
+    for(auto i = 0; i < x.size(); i++)
+    {
+      // if i < n: add NA to output vector
+      if(i < (n-1) || NumericVector::is_na(x[i]))
+      {
+        out[i] = NA_REAL;
+      }
+      // otherwise calculate the x[i]s percentile rank based on it and the previous n-1 values
+      else
+      {
+        int count = 0;
+        int na_count = 0;
+        // find the percentile rank of x[i] in this wdw
+        // TODO: replace with iterator
+        for(auto j = i-n+1; j <= i; j++)
+        {
+          // count the number of values in the window below or equal to x[i]
+          if(x[j] <= x[i])
+            count++;
+          // also increment the count if x[j] is NA
+          if(NumericVector::is_na(x[j]))
+            na_count++;
+        }
+        // safe from divide by zero error sinace na_count can never equal n as
+        // we deal with that case in the first if statement above
+        out[i] = count*100./(n-na_count);
+      }
+    }
+  }
+  // if na_rm is false and any missing values present, return NA for all values
+  // that have NA in their window
+  else
+  {
+    // iterate through history
+    for(auto i = 0; i < x.size(); i++)
+    {
+      // if i < n: add NA to output vector
+      if(i < (n-1) || NumericVector::is_na(x[i]))
+      {
+        out[i] = NA_REAL;
+      }
+      // otherwise calculate the x[i]s percentile rank based on it and the previous n-1 values
+      else
+      {
+        int count = 0;
+        // find the percentile rank of x[i] in this wdw
+        // TODO: replace with iterator
+        for(auto j = i-n+1; j <= i; j++)
+        {
+          if(NumericVector::is_na(x[j]))
+          {
+            out[i] = NA_REAL;
+            break;
+          }
+
+          if(x[j] <= x[i])
+            count++;
+
+          out[i] = count*100./n;
+        }
+      }
+    }
+  }
+  return out;
+}
+
+
 
 // You can include R code blocks in C++ files processed with sourceCpp
 // (useful for testing and development). The R code will be automatically

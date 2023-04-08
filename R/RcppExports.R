@@ -50,3 +50,13 @@ calc_bs_iv_cpp <- function(S, K, T, r, market, op_type) {
     .Call(`_quantpack_calc_bs_iv_cpp`, S, K, T, r, market, op_type)
 }
 
+#' Rolling percentile
+#'
+#' @param x, vector of feature
+#' @param n, window size
+#' @param na_rm, to remove NA's or not
+#' @export
+calc_rolling_percentile <- function(x, n, na_rm = TRUE) {
+    .Call(`_quantpack_calc_rolling_percentile`, x, n, na_rm)
+}
+

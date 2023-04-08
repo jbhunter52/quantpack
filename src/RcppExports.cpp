@@ -69,12 +69,26 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// calc_rolling_percentile
+NumericVector calc_rolling_percentile(NumericVector x, int n, bool na_rm);
+RcppExport SEXP _quantpack_calc_rolling_percentile(SEXP xSEXP, SEXP nSEXP, SEXP na_rmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< bool >::type na_rm(na_rmSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_rolling_percentile(x, n, na_rm));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_quantpack_testchar", (DL_FUNC) &_quantpack_testchar, 1},
     {"_quantpack_calc_bs_cpp_loop", (DL_FUNC) &_quantpack_calc_bs_cpp_loop, 6},
     {"_quantpack_calc_bs_cpp", (DL_FUNC) &_quantpack_calc_bs_cpp, 6},
     {"_quantpack_calc_bs_iv_cpp", (DL_FUNC) &_quantpack_calc_bs_iv_cpp, 6},
+    {"_quantpack_calc_rolling_percentile", (DL_FUNC) &_quantpack_calc_rolling_percentile, 3},
     {NULL, NULL, 0}
 };
 
