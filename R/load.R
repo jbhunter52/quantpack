@@ -21,7 +21,7 @@ load_ticker <- function(ticker, source='EODHistorical', interval='1D')
     source_dir <- EOD_DIR
     file <- paste0(EOD_DIR,'\\',interval,'\\',ticker,file_ext)
 
-    if (interval == 'EOD')
+    if (interval %in% c('EOD','EOD_INDX'))
     {
       df <- read_parquet(file) %>%
         mutate(date = as.Date(date)) %>%
