@@ -21,3 +21,5 @@ env variable, fred_key, should contain fred api key
 -load.R, loads securities price history
 
 -mom.R, calculates momentum features
+
+-markets.R, various trading functions

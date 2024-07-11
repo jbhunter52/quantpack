@@ -17,7 +17,7 @@ get_mom <- function(x, n=1) {
 #' @return vector
 #' @export
 get_sma <- function(x, n=20) {
-  return(x / RcppRoll:roll_meanr(x, n = n) - 1)
+  return(x / RcppRoll::roll_meanr(x, n = n) - 1)
 }
 
 #' SMA ratio
@@ -51,7 +51,7 @@ get_rrp <- function(x, n=20) {
 get_absr <- function(x, n=20){
   minr <- RcppRoll::roll_minr(x, n = n)
   maxr <- RcppRoll::roll_maxr(x, n = n)
-  return( 
+  return(
     2*((x - minr) / (maxr-minr)) - 1
   )
 }
@@ -65,6 +65,6 @@ get_absr <- function(x, n=20){
 #     idx_of_high <- which.max(x)
 #     days_since_high <- -length(x) + idx_of_high + (nn/2)
 #     return(days_since_high)
-#   }, 
+#   },
 #   window = n, na_value = NA)
 # }
